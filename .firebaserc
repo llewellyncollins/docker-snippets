@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "docker-snippets"
+  },
+  "targets": {
+    "docker-snippets": {
+      "hosting": {
+        "docker-snippets-admin": [
+          "docker-snippets-admin"
+        ]
+      }
+    }
+  }
+}
