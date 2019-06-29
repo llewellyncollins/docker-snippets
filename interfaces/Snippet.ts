@@ -1,5 +1,5 @@
-interface Snippet {
-    id: string;
+export default interface Snippet {
+    id?: string;
     userId: string;
     name: string;
     content: string;

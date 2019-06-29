@@ -2,6 +2,7 @@ import { db } from '../firebase-local';
 
 export default async ( name: string ) => {
     try {
+        // TODO: Validation
         const ref = await db.collection( 'tags' ).add( { name } );
         return {
             id: ref.id,
