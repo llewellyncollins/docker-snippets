@@ -1,4 +1,9 @@
 module.exports = {
+    collectCoverage    : true,
+    collectCoverageFrom: [
+        '**/*.vue',
+        '!**/node_modules/**'
+    ],
     moduleFileExtensions: [
         'js',
         'jsx',

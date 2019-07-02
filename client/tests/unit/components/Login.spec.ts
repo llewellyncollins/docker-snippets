@@ -2,7 +2,6 @@ import { shallowMount } from '@vue/test-utils';
 
 describe( 'Login.vue', () => {
     test( 'should be a Vue instance', () => {
-
     } )
 
     test( 'should render correctly', () => {
