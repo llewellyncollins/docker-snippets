@@ -16,15 +16,7 @@ describe( 'Snippet.vue', () => {
 
     } );
 
-    test( 'should show mini view when props.type is not defined', () => {
-
-    } );
-
-    test( 'should show mini view when props.type="mini"', () => {
-
-    } );
-
-    test( 'should show full view when props.type="full"', () => {
+    test( 'should show the correct snippet information', () => {
 
     } );
 

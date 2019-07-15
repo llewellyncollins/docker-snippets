@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import 'vuetify/src/stylus/app.styl';
-import colors from 'vuetify/es5/util/colors';
+import VueHighlightJS from 'vue-highlightjs';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
 
-Vue.config.productionTip = false;
 
 Vue.use( Vuetify, {
   iconfont: 'md',
@@ -21,6 +20,8 @@ Vue.use( Vuetify, {
     success: '#4caf50'
   }
 } )
+
+Vue.use( VueHighlightJS )
 
 new Vue( {
   router,

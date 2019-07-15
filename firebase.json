@@ -13,6 +13,17 @@
                     "destination": "/index.html"
                 }
             ]
+        },
+        {
+            "target": "docker-snippets",
+            "public": "client/dist",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ]
         }
     ]
 }

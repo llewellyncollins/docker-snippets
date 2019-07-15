@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/app';
 import 'firebase/functions';
 import 'firebase/firestore';
+import Snippet from '../../interfaces/Snippet';
 
 Vue.use( Vuex );
 
@@ -20,23 +21,44 @@ const firebaseConfig = {
 firebase.initializeApp( firebaseConfig );
 
 const fireBaseFunctions = firebase.functions();
+const getSnippetsFunc = fireBaseFunctions.httpsCallable( 'getSnippets' );
 const addSnippetFunc = fireBaseFunctions.httpsCallable( 'addSnippet' );
+
+const snippets: Snippet[] = [];
+const snippet: Snippet = {};
 
 export default new Vuex.Store( {
   state: {
-    snippet: {},
-    snippets: {}
+    snippet,
+    snippets
   },
   mutations: {
-    SET_SNIPPET ( state, snippet ) {
-      state.snippet = snippet;
+    SET_SNIPPETS ( state, newSnippets: Snippet[] ) {
+      state.snippets = newSnippets;
+    },
+    SET_SNIPPET ( state, id ) {
+      // TODO: Error if not found
+      state.snippet = state.snippets.filter( ( s ) => { return s.id === id; } )[ 0 ];
     }
   },
   actions: {
+    setSnippets ( { commit } ) {
+      return getSnippetsFunc( {
+        name: '',
+        tag: '',
+        limit: 10
+      } ).then( ( response ) => {
+        commit( 'SET_SNIPPETS', response.data );
+      } );
+    },
     addSnippet ( { commit }, snippet ) {
       return addSnippetFunc( snippet ).then( ( response ) => {
         commit( 'SET_SNIPPET', response.data );
       } );
+    },
+    setSnippet ( { commit }, id ) {
+      // TODO: Get snippet from the server
+      commit( 'SET_SNIPPET', id );
     }
   },
 } );
