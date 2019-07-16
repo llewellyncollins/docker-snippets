@@ -23,6 +23,7 @@ export const actions: ActionTree<SnippetsState, RootState> = {
         return getSnippetFunc( { id } ).then( ( response ) => {
             const payload: Snippet = response && response.data;
             commit( 'SET_SNIPPET', payload );
+            return payload;
         } );
     },
     addSnippet ( { commit }, snippet ) {

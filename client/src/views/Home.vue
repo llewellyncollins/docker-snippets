@@ -2,33 +2,24 @@
     <div>
         <ProgressBar :loading="!snippetList" />
         <div v-if="snippetList">
-            <SnippetItem
-                v-for="(snippet, index) in snippetList"
-                :key="index"
-                :id="snippet.id"
-                :name="snippet.name"
-                author="JOhn s"
-                :description="snippet.description"
-                :content="snippet.content"
-                :tags="snippet.tags"
-            />
+            <SnippetList :snippets="snippetList" />
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-import ProgressBar from '@/components/ProgressBar';
-import SnippetItem from '@/components/SnippetItem';
+import { mapActions, mapState } from "vuex";
+import ProgressBar from "@/components/ProgressBar";
+import SnippetList from "@/components/SnippetList";
 
 export default {
-    name: 'Home',
+    name: "Home",
     components: {
         ProgressBar,
-        SnippetItem
+        SnippetList
     },
     computed: {
-        ...mapState('snippets', ['snippetList'])
+        ...mapState("snippets", ["snippetList"])
     }
 };
 </script>
