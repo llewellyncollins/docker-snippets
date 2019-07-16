@@ -7,7 +7,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-items>
             <v-btn id="explore-button" flat to="/">Explore</v-btn>
-            <v-btn id="explore-button" flat to="/create">Create</v-btn>
+            <v-btn id="explore-button" flat to="/snippet/create">Create</v-btn>
             <v-btn v-if="!isUserSignedIn" id="signin-button" flat to="/signin"
                 >Sign In</v-btn
             >

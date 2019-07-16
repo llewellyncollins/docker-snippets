@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import Create from './views/Create.vue';
-import Snippet from './views/Snippet.vue';
+import SnippetCreate from './views/SnippetCreate.vue';
+import SnippetView from './views/SnippetView.vue';
 
 Vue.use( Router );
 
@@ -16,14 +16,14 @@ export default new Router( {
       component: Home
     },
     {
-      path: '/create',
-      name: 'create',
-      component: Create
+      path: '/snippet/create',
+      name: 'snippet-create',
+      component: SnippetCreate
     },
     {
       path: '/snippet/:id',
-      name: 'snippet',
-      component: Snippet
+      name: 'snippet-view',
+      component: SnippetView
     },
     {
       path: '/about',
