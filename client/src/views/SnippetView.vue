@@ -1,26 +1,30 @@
 <template>
     <div>
         <ProgressBar :loading="loading" />
-        <ViewSnippet
-            v-if="!loading && selectedSnippet"
-            :id="selectedSnippet.id"
-            :name="selectedSnippet.name"
-            :content="selectedSnippet.content"
-            :author="selectedSnippet.author"
-            :description="selectedSnippet.description"
-            :tags="selectedSnippet.tags"
-            :downloads="selectedSnippet.downloads"
-            :stars="selectedSnippet.stars"
-        />
+        <v-card class="mb-3" v-if="!loading && selectedSnippet">
+            <v-card-title primary-title>
+                <div>
+                    <h3 class="headline mb-0">{{ selectedSnippet.name }}</h3>
+                    <div>By User: {{ selectedSnippet.author }}</div>
+                </div>
+                <v-spacer></v-spacer>
+            </v-card-title>
+
+            <v-card-text></v-card-text>
+
+            <v-card-actions>
+                <v-btn flat color="orange">Download</v-btn>
+            </v-card-actions>
+        </v-card>
+        <v-sheet class="d-flex" color="grey lighten-3" height="424">{{ selectedSnippet.content }}</v-sheet>
     </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex';
-import ProgressBar from '@/components/ProgressBar';
-import ViewSnippet from '@/components/ViewSnippet';
+import { mapActions, mapState } from "vuex";
+import ProgressBar from "@/components/ProgressBar";
 export default {
-    name: 'Snippet',
-    components: { ProgressBar, ViewSnippet },
+    name: "Snippet",
+    components: { ProgressBar },
     data() {
         return {
             loading: true
@@ -32,13 +36,13 @@ export default {
         });
     },
     computed: {
-        ...mapState('snippets', ['selectedSnippet']),
+        ...mapState("snippets", ["selectedSnippet"]),
         id() {
             return this.$route.params.id;
         }
     },
     methods: {
-        ...mapActions('snippets', ['loadSnippet'])
+        ...mapActions("snippets", ["loadSnippet"])
     }
 };
 </script>

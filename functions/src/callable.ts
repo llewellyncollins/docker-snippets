@@ -4,6 +4,7 @@ import addTagFunc from './tags/addTag';
 import deleteTagFunc from './tags/deleteTag';
 import addSnippetFunc from './snippets/addSnippet';
 import getSnippetsFunc from './snippets/getSnippets';
+import getSnippetFunc from './snippets/getSnippet';
 
 export const getTags = functions.https.onCall( ( data, context ) => {
     const limit = data.limit;
@@ -40,5 +41,11 @@ export const addSnippet = functions.https.onCall( ( data, context ) => {
 export const getSnippets = functions.https.onCall( ( data, context ) => {
     const { name, tag, limit } = data;
     return getSnippetsFunc( name, tag, limit )
+        .catch( e => { throw new functions.https.HttpsError( 'cancelled', e.message ) } );
+} );
+
+export const getSnippet = functions.https.onCall( ( data, context ) => {
+    const { id } = data;
+    return getSnippetFunc( id )
         .catch( e => { throw new functions.https.HttpsError( 'cancelled', e.message ) } );
 } );
