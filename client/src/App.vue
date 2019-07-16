@@ -19,15 +19,11 @@ export default {
         Nav
     },
     created: function() {
-        this.setSnippets();
-    },
-    data() {
-        return {
-            //
-        };
+        // TODO: Fetch the latest snippets. Find a better place for this
+        this.loadSnippets();
     },
     methods: {
-        ...mapActions([`setSnippets`])
+        ...mapActions('snippets', [`loadSnippets`])
     }
 };
 </script>

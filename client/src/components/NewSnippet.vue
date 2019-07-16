@@ -62,7 +62,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions([`addSnippet`]),
+        ...mapActions('snippets', [`addSnippet`]),
         async submit() {
             if (this.$refs.form.validate()) {
                 this.loading = true;

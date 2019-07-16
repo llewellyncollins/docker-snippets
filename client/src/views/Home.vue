@@ -1,9 +1,9 @@
 <template>
     <div>
-        <ProgressBar :loading="!snippets" />
-        <div v-if="snippets">
+        <ProgressBar :loading="!snippetList" />
+        <div v-if="snippetList">
             <SnippetItem
-                v-for="(snippet, index) in snippets"
+                v-for="(snippet, index) in snippetList"
                 :key="index"
                 :id="snippet.id"
                 :name="snippet.name"
@@ -28,7 +28,7 @@ export default {
         SnippetItem
     },
     computed: {
-        ...mapState(['snippets'])
+        ...mapState('snippets', ['snippetList'])
     }
 };
 </script>

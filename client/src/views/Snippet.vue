@@ -2,15 +2,15 @@
     <div>
         <ProgressBar :loading="loading" />
         <ViewSnippet
-            v-if="!loading && snippet"
-            :id="snippet.id"
-            :name="snippet.name"
-            :content="snippet.content"
-            :author="snippet.author"
-            :description="snippet.description"
-            :tags="snippet.tags"
-            :downloads="snippet.downloads"
-            :stars="snippet.stars"
+            v-if="!loading && selectedSnippet"
+            :id="selectedSnippet.id"
+            :name="selectedSnippet.name"
+            :content="selectedSnippet.content"
+            :author="selectedSnippet.author"
+            :description="selectedSnippet.description"
+            :tags="selectedSnippet.tags"
+            :downloads="selectedSnippet.downloads"
+            :stars="selectedSnippet.stars"
         />
     </div>
 </template>
@@ -27,18 +27,18 @@ export default {
         };
     },
     created() {
-        this.setSnippet(this.id).then(() => {
+        this.loadSnippet(this.id).then(() => {
             this.loading = false;
-            this.snippet = this.$store.state.snippet;
         });
     },
     computed: {
+        ...mapState('snippets', ['selectedSnippet']),
         id: function() {
             return this.$route.params.id;
         }
     },
     methods: {
-        ...mapActions(['setSnippet'])
+        ...mapActions('snippets', ['loadSnippet'])
     }
 };
 </script>
