@@ -21,8 +21,8 @@ describe( 'Snippet.vue', () => {
         const content = 'FROM node';
         const wrapper = shallowMount( SnippetItem, {
             propsData: {
-                name: 'Test SNIPPET',
-                author: 'JOHN Doe',
+                name: 'test snippet',
+                author: 'john doe',
                 description,
                 content,
                 tags: [ 'tEst', 'NODE' ],
@@ -31,9 +31,8 @@ describe( 'Snippet.vue', () => {
             }
         } );
 
-        expect( wrapper.find( `.snippet-name` ).text() ).toBe( 'Test Snippet' );
-        expect( wrapper.find( `.snippet-author` ).text() ).toBe( 'John Doe' );
+        expect( wrapper.find( `.snippet-name` ).text() ).toBe( 'test snippet' );
+        expect( wrapper.find( `.snippet-author` ).text() ).toBe( 'john doe' );
         expect( wrapper.find( `.snippet-description` ).text() ).toBe( description );
-        expect( wrapper.find( `.snippet-content` ).text() ).toBe( content );
     } );
 } );

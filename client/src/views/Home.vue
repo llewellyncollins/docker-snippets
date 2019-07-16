@@ -7,7 +7,7 @@
                 :key="index"
                 :id="snippet.id"
                 :name="snippet.name"
-                author="John"
+                author="JOhn s"
                 :description="snippet.description"
                 :content="snippet.content"
                 :tags="snippet.tags"

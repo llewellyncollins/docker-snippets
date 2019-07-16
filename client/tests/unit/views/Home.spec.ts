@@ -1,6 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 
 describe( 'Home View', () => {
-    test( 'should contain a SnippetList.vue', () => {
-    } )
+    test( 'TODO', () => {
+        expect( true ).toBe( true );
+    } );
+    /*test( 'should contain a SnippetList.vue', () => {
+    } )*/
 } );
