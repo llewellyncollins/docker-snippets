@@ -65,10 +65,10 @@ export default {
         const matches = this.content.match(regex);
     },
     computed: {
-        variables: function() {
+        variables() {
             return [];
         },
-        output: function() {
+        output() {
             return 'sss';
         }
     },

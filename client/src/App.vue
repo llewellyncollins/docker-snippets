@@ -18,7 +18,7 @@ export default {
     components: {
         Nav
     },
-    created: function() {
+    created() {
         // TODO: Fetch the latest snippets. Find a better place for this
         this.loadSnippets();
     },

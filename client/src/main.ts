@@ -17,12 +17,12 @@ Vue.use( Vuetify, {
     info: '#2196f3',
     success: '#4caf50'
   }
-} )
+} );
 
 new Vue( {
   router,
   store,
-  render: ( h ) => h( App ),
+  render: ( h ) => h( App )
 } ).$mount( '#app' );
 
 

@@ -9,7 +9,7 @@ describe( 'Snippet.vue', () => {
     test( 'should be a Vue instance', () => {
         const wrapper = shallowMount( SnippetItem );
         expect( wrapper.isVueInstance() ).toBeTruthy();
-    } )
+    } );
 
     test( 'should render correctly', () => {
         const wrapper = shallowMount( SnippetItem );

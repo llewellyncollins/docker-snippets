@@ -9,7 +9,7 @@ describe( 'Nav.vue', () => {
     test( 'should be a Vue instance', () => {
         const wrapper = shallowMount( Nav );
         expect( wrapper.isVueInstance() ).toBeTruthy();
-    } )
+    } );
 
     test( 'should render correctly', () => {
         const wrapper = shallowMount( Nav );

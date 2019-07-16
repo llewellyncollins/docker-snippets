@@ -9,6 +9,9 @@ import { snippets } from './snippets/index';
 Vue.use( Vuex );
 
 const store: StoreOptions<RootState> = {
+  state: {
+    version: '0.1.0'
+  },
   modules: {
     snippets
   }

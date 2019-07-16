@@ -33,7 +33,7 @@ export default {
     },
     computed: {
         ...mapState('snippets', ['selectedSnippet']),
-        id: function() {
+        id() {
             return this.$route.params.id;
         }
     },

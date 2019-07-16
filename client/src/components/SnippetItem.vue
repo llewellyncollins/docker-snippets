@@ -65,7 +65,7 @@ export default {
         }
     },
     computed: {
-        url: function() {
+        url() {
             // TODO: Use slug
             return `/snippet/${this.id}`;
         }
