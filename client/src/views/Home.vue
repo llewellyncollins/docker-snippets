@@ -16,7 +16,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import { mapActions, mapState } from 'vuex';
 import ProgressBar from '@/components/ProgressBar';
 import SnippetItem from '@/components/SnippetItem';
