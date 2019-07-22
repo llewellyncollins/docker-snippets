@@ -7,6 +7,7 @@ const fireBaseFunctions = firebase.functions();
 const getSnippetsFunc = fireBaseFunctions.httpsCallable( 'getSnippets' );
 const getSnippetFunc = fireBaseFunctions.httpsCallable( 'getSnippet' );
 const addSnippetFunc = fireBaseFunctions.httpsCallable( 'addSnippet' );
+const editSnippetFunc = fireBaseFunctions.httpsCallable( 'editSnippet' );
 
 export const actions: ActionTree<SnippetsState, RootState> = {
     loadSnippets ( { commit } ) {
@@ -28,6 +29,12 @@ export const actions: ActionTree<SnippetsState, RootState> = {
     },
     addSnippet ( { commit }, snippet ) {
         return addSnippetFunc( snippet ).then( ( response ) => {
+            const payload: Snippet = response && response.data;
+            commit( 'SET_SNIPPET', payload );
+        } );
+    },
+    editSnippet ( { commit }, snippet ) {
+        return editSnippetFunc( snippet ).then( ( response ) => {
             const payload: Snippet = response && response.data;
             commit( 'SET_SNIPPET', payload );
         } );

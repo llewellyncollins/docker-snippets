@@ -26,6 +26,7 @@
         <v-card-actions>
             <v-btn flat color="orange">Star</v-btn>
             <v-btn flat color="orange" :to="`/snippet/${id}`">Customise</v-btn>
+            <v-btn flat color="orange" :to="`/snippet/edit/${id}`">Edit</v-btn>
         </v-card-actions>
     </v-card>
 </template>

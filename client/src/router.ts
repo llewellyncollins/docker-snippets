@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import SnippetCreate from './views/SnippetCreate.vue';
 import SnippetView from './views/SnippetView.vue';
+import SnippetEdit from './views/SnippetEdit.vue';
 
 Vue.use( Router );
 
@@ -24,6 +25,11 @@ export default new Router( {
       path: '/snippet/:id',
       name: 'snippet-view',
       component: SnippetView
+    },
+    {
+      path: '/snippet/edit/:id',
+      name: 'snippet-edit',
+      component: SnippetEdit
     },
     {
       path: '/about',

@@ -10,10 +10,11 @@ export default async ( snippetData: Snippet ) => {
 
         validateSnippet( snippetData );
 
-        const snippetRef = await db.collection( 'snippets' ).add( snippetData );
+        // TODO: Check if user own the snippet
+        await db.collection( 'snippets' ).doc( snippetData.id ).update( snippetData );
 
         return {
-            id: snippetRef.id
+            id: snippetData.id
         }
     } catch ( e ) {
         console.log( e );

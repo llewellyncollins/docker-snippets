@@ -5,6 +5,7 @@ import deleteTagFunc from './tags/deleteTag';
 import addSnippetFunc from './snippets/addSnippet';
 import getSnippetsFunc from './snippets/getSnippets';
 import getSnippetFunc from './snippets/getSnippet';
+import editSnippetFunc from './snippets/editSnippet';
 
 export const getTags = functions.https.onCall( ( data, context ) => {
     const limit = data.limit;
@@ -30,6 +31,19 @@ export const addSnippet = functions.https.onCall( ( data, context ) => {
     const userId = '';//context.auth.uid;
     const { name, description, content } = data;
     return addSnippetFunc( {
+        name,
+        description,
+        content,
+        userId,
+        tags: []
+    } ).catch( e => { throw new functions.https.HttpsError( 'cancelled', e.message ) } );
+} );
+
+export const editSnippet = functions.https.onCall( ( data, context ) => {
+    const userId = '';//context.auth.uid;
+    const { id, name, description, content } = data;
+    return editSnippetFunc( {
+        id,
         name,
         description,
         content,
