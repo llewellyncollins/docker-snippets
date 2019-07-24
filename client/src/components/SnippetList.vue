@@ -1,16 +1,16 @@
 <template>
-    <div>
-        <div v-for="(snippet, index) in snippets" :key="index">
-            <SnippetItem
-                :id="snippet.id"
-                :name="snippet.name"
-                :author="snippet.author"
-                :description="snippet.description"
-                :content="snippet.content"
-                :downloads="snippet.downloads"
-                :stars="snippet.stars"
-            />
-        </div>
+    <div class="snippet-list">
+        <SnippetItem
+            :id="snippet.id"
+            :name="snippet.name"
+            :author="snippet.author"
+            :description="snippet.description"
+            :content="snippet.content"
+            :downloads="snippet.downloads"
+            :stars="snippet.stars"
+            v-for="(snippet, index) in snippets"
+            :key="index"
+        />
     </div>
 </template>
 <script>

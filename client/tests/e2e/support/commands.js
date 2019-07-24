@@ -23,3 +23,23 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add( 'navigateToSnippet', ( index = 0 ) => {
+    cy
+        .get( '.snippet-list>.snippet-item' )
+        .eq( index )
+        .find( '[name="customise"]' )
+        .click();
+} );
+
+Cypress.Commands.add( 'buttonIsDisabled', ( selector ) => {
+    cy
+        .get( selector )
+        .should( 'be.disabled' );
+} );
+
+Cypress.Commands.add( 'buttonIsEnabled', ( selector ) => {
+    cy
+        .get( selector )
+        .should( 'be.not.disabled' );
+} );

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="page edit">
         <ProgressBar :loading="loading" />
         <v-form v-if="!loading" v-model="valid" ref="form" lazy-validation>
             <v-text-field

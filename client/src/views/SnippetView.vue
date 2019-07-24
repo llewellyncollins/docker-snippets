@@ -1,31 +1,33 @@
 <template>
-    <div>
+    <div class="page view">
         <ProgressBar :loading="loading" />
         <div v-if="!loading">
             <v-card class="mb-3">
                 <v-card-title primary-title>
                     <div>
-                        <h3 class="headline mb-0">{{ name }}</h3>
-                        <div>By User: {{ author }}</div>
+                        <h3 class="headline mb-0 info-name">{{ name }}</h3>
+                        <div class="info-author">By User: {{ author }}</div>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
 
-                <v-card-text>
+                <v-card-text class="variables">
                     <v-text-field
                         v-for="(item, index) in variables"
                         :key="index"
                         :label="item.name"
                         :value="item.value"
+                        :name="item.name"
                         @input="onValueChanged(index, $event)"
+                        class="variable"
                     ></v-text-field>
                 </v-card-text>
 
                 <v-card-actions>
-                    <v-btn flat color="orange">Copy</v-btn>
+                    <v-btn name="copy" flat color="orange">Copy</v-btn>
                 </v-card-actions>
             </v-card>
-            <v-sheet class="d-flex" color="grey lighten-3" height="424">
+            <v-sheet class="d-flex content" color="grey lighten-3" height="424">
                 {{
                 liveContent
                 }}

@@ -29,6 +29,7 @@
         "@vue/cli-service": "^3.9.2",
         "@vue/test-utils": "1.0.0-beta.29",
         "babel-core": "7.0.0-bridge.0",
+        "chance": "^1.0.18",
         "lint-staged": "^9.2.0",
         "node-sass": "^4.12.0",
         "sass-loader": "^7.1.0",

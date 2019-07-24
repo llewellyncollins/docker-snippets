@@ -1,9 +1,7 @@
 <template>
-    <div>
+    <div class="page home">
         <ProgressBar :loading="!snippetList" />
-        <div v-if="snippetList">
-            <SnippetList :snippets="snippetList" />
-        </div>
+        <SnippetList v-if="snippetList" :snippets="snippetList" />
     </div>
 </template>
 
