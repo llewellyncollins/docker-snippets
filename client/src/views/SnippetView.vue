@@ -28,34 +28,32 @@
                 </v-card-actions>
             </v-card>
             <v-sheet class="d-flex content" color="grey lighten-3" height="424">
-                {{
-                liveContent
-                }}
+                {{ liveContent }}
             </v-sheet>
         </div>
     </div>
 </template>
 <script>
-import { mapActions } from "vuex";
-import ProgressBar from "@/components/ProgressBar";
+import { mapActions } from 'vuex';
+import ProgressBar from '@/components/ProgressBar';
 
 const regex = /{{([a-zA-Z]+):([a-zA-Z0-9]+)}}/g;
 
 export default {
-    name: "Snippet",
+    name: 'Snippet',
     components: { ProgressBar },
     data() {
         return {
             loading: true,
-            name: "",
-            author: "",
-            content: "",
-            liveContent: "",
+            name: '',
+            author: '',
+            content: '',
+            liveContent: '',
             variables: []
         };
     },
     created() {
-        this.loadSnippet(this.id).then(response => {
+        this.loadSnippet(this.id).then((response) => {
             this.loading = false;
             this.name = response.name;
             this.author = response.author;
@@ -63,7 +61,7 @@ export default {
 
             const variables = [...response.content.matchAll(regex)];
 
-            this.variables = variables.map(variable => {
+            this.variables = variables.map((variable) => {
                 return {
                     name: variable[1],
                     value: variable[2]
@@ -78,25 +76,18 @@ export default {
     },
     watch: {
         variables() {
-            let content = this.variables.reduce((output, variable) => {
+            const content = this.variables.reduce((output, variable) => {
                 const regexStr = `{{${variable.name}:[a-zA-Z0-9]+}}`;
-                return output.replace(
-                    new RegExp(regexStr, "g"),
-                    variable.value
-                );
+                return output.replace(new RegExp(regexStr, 'g'), variable.value);
             }, this.content);
 
             this.liveContent = content;
         }
     },
     methods: {
-        ...mapActions("snippets", ["loadSnippet"]),
+        ...mapActions('snippets', ['loadSnippet']),
         onValueChanged(index, value) {
-            this.variables.splice(
-                index,
-                1,
-                Object.assign(this.variables[index], { value })
-            );
+            this.variables.splice(index, 1, Object.assign(this.variables[index], { value }));
         }
     }
 };

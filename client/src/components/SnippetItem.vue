@@ -6,9 +6,7 @@
                 <div>
                     By User:
                     <span class="snippet-author">
-                        {{
-                        author
-                        }}
+                        {{ author }}
                     </span>
                 </div>
             </div>
@@ -18,9 +16,7 @@
         </v-card-title>
 
         <v-card-text class="snippet-description">
-            {{
-            description
-            }}
+            {{ description }}
         </v-card-text>
 
         <v-card-actions>
@@ -31,9 +27,9 @@
     </v-card>
 </template>
 <script>
-import Counter from "@/components/Counter";
+import Counter from '@/components/Counter';
 export default {
-    name: "SnippetItem",
+    name: 'SnippetItem',
     components: {
         Counter
     },
@@ -48,20 +44,22 @@ export default {
     },
     data() {
         return {
-            liveContent: ""
+            liveContent: ''
         };
     },
     computed: {
-        downloadLink: function() {
+        downloadLink() {
             const file = new Blob([this.content], {
-                type: "text/plain;charset=utf-8"
+                type: 'text/plain;charset=utf-8'
             });
 
             return URL.createObjectURL(file);
         }
     },
     methods: {
-        download() {}
+        download() {
+            // TODO
+        }
     }
 };
 </script>

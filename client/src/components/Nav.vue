@@ -9,20 +9,8 @@
             <v-toolbar-items>
                 <v-btn name="explore" id="explore-button" flat to="/">Explore</v-btn>
                 <v-btn name="create" id="explore-button" flat to="/snippet/create">Create</v-btn>
-                <v-btn
-                    name="sign-in"
-                    v-if="!isUserSignedIn"
-                    id="signin-button"
-                    flat
-                    to="/signin"
-                >Sign In</v-btn>
-                <v-btn
-                    name="sign-out"
-                    v-if="isUserSignedIn"
-                    id="signout-button"
-                    flat
-                    to="/signout"
-                >Sign Out</v-btn>
+                <v-btn name="sign-in" v-if="!isUserSignedIn" id="signin-button" flat to="/signin">Sign In</v-btn>
+                <v-btn name="sign-out" v-if="isUserSignedIn" id="signout-button" flat to="/signout">Sign Out</v-btn>
             </v-toolbar-items>
         </v-toolbar>
     </nav>
@@ -30,7 +18,7 @@
 
 <script>
 export default {
-    name: "Nav",
+    name: 'Nav',
     components: {},
     props: {
         visible: {

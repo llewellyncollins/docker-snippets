@@ -14,10 +14,10 @@
     </div>
 </template>
 <script>
-import SnippetItem from "@/components/SnippetItem";
+import SnippetItem from '@/components/SnippetItem';
 
 export default {
-    name: "SnippetList",
+    name: 'SnippetList',
     components: {
         SnippetItem
     },
