@@ -1,8 +1,9 @@
 <template>
     <v-app>
-        <Nav :visible="true" :isUserSignedIn="false" />
+        <ProgressBar :loading="!ready" />
+        <Nav v-if="ready" :visible="true" :isLoggedIn="isLoggedIn" :onSignOut="onSignOut" />
         <v-content>
-            <v-container>
+            <v-container v-if="ready">
                 <router-view></router-view>
             </v-container>
         </v-content>
@@ -10,20 +11,31 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+import ProgressBar from '@/components/ProgressBar';
 import Nav from '@/components/Nav';
 
 export default {
     name: 'App',
     components: {
-        Nav
+        Nav,
+        ProgressBar
     },
     created() {
         // TODO: Fetch the latest snippets. Find a better place for this
         this.loadSnippets();
     },
     methods: {
-        ...mapActions('snippets', [`loadSnippets`])
+        ...mapActions('snippets', [`loadSnippets`]),
+        ...mapActions('user', [`signOut`]),
+        async onSignOut() {
+            await this.signOut();
+            this.$router.push('/auth');
+        }
+    },
+    computed: {
+        ...mapState('user', ['isLoggedIn']),
+        ...mapState(['ready'])
     }
 };
 </script>
