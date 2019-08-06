@@ -9,7 +9,7 @@
             <v-toolbar-items>
                 <v-btn name="explore" id="explore-button" flat to="/">Explore</v-btn>
                 <v-btn name="create" id="explore-button" flat to="/snippet/create">Create</v-btn>
-                <v-btn name="sign-in" v-if="!isLoggedIn" id="signin-button" flat to="/signin">Sign In</v-btn>
+                <v-btn name="sign-in" v-if="!isLoggedIn" id="signin-button" flat to="/auth">Sign In</v-btn>
                 <v-btn name="sign-out" v-if="isLoggedIn" id="signout-button" flat @click="signOut">Sign Out</v-btn>
             </v-toolbar-items>
         </v-toolbar>

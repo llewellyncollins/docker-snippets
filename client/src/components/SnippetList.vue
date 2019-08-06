@@ -8,6 +8,7 @@
             :content="snippet.content"
             :downloads="snippet.downloads"
             :stars="snippet.stars"
+            :editable="snippet.userId === uid"
             v-for="(snippet, index) in snippets"
             :key="index"
         />
@@ -22,7 +23,8 @@ export default {
         SnippetItem
     },
     props: {
-        snippets: Array
+        snippets: Array,
+        uid: String
     }
 };
 </script>

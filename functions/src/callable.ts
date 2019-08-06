@@ -28,7 +28,7 @@ export const deleteTag = functions.https.onCall( ( data, context ) => {
 } );
 
 export const addSnippet = functions.https.onCall( ( data, context ) => {
-    const userId = '';//context.auth.uid;
+    const userId = context.auth.uid;
     const { name, description, content } = data;
     return addSnippetFunc( {
         name,
@@ -40,7 +40,7 @@ export const addSnippet = functions.https.onCall( ( data, context ) => {
 } );
 
 export const editSnippet = functions.https.onCall( ( data, context ) => {
-    const userId = '';//context.auth.uid;
+    const userId = context.auth.uid;
     const { id, name, description, content } = data;
     return editSnippetFunc( {
         id,

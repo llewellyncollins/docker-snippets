@@ -10,6 +10,12 @@ import * as firebaseui from 'firebaseui';
 import ProgressBar from '@/components/ProgressBar';
 import 'firebase/auth';
 
+const uiConfig = {
+    signInSuccessUrl: '/',
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
+};
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
 export default {
     name: 'Auth',
     components: {
@@ -17,11 +23,6 @@ export default {
     },
     computed: {},
     mounted() {
-        const uiConfig = {
-            signInSuccessUrl: '/',
-            signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
-        };
-        const ui = new firebaseui.auth.AuthUI(firebase.auth());
         ui.start('#auth-container', uiConfig);
     }
 };

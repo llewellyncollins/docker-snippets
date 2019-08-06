@@ -6,12 +6,12 @@ export const mutations: MutationTree<UserState> = {
         state.isLoggedIn = status;
     },
     SET_USER_DETAILS( state, payload ) {
-        state.id = payload.id;
+        state.uid = payload.id;
         state.displayName = payload.displayName;
         state.email = payload.email;
     },
     CLEAR_USER_DETAILS( state ) {
-        state.id = undefined;
+        state.uid = undefined;
         state.displayName = undefined;
         state.email = undefined;
     }

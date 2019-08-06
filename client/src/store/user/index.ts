@@ -5,7 +5,7 @@ import { RootState, UserState } from '../interfaces';
 
 export const state: UserState = {
     isLoggedIn: false,
-    id: undefined,
+    uid: undefined,
     email: undefined,
     displayName: undefined
 };
