@@ -3,6 +3,7 @@ import Snippet from '../../../interfaces/Snippet';
 export interface RootState {
     version?: string;
     ready: boolean;
+    loading: boolean;
 }
 
 export interface SnippetsState {

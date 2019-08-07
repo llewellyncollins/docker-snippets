@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex';
 import { RootState, UserState } from '../interfaces';
-import firebase from '../../firebase';
+import firebase from 'firebase/app';
 
 export const actions: ActionTree<UserState, RootState> = {
     updateUserLoggedIn( { commit }, status: boolean ) {

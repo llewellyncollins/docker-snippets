@@ -12,16 +12,25 @@ Vue.use( Vuex );
 const store: StoreOptions<RootState> = {
   state: {
     version: '0.1.0',
-    ready: false
+    ready: false,
+    loading: false
   },
   actions: {
-    updateReadyState( { commit }, status ) {
-      commit( 'SET_READY_STATE', status );
+    setReadyState( { commit }, status ) {
+      commit( 'setReadyState', status );
     }
   },
   mutations: {
-    SET_READY_STATE( state, status ) {
+    setReadyState( state, status ) {
       state.ready = status;
+    }
+  },
+  getters: {
+    ready( state ) {
+      return state.ready;
+    },
+    loading( state ) {
+      return state.loading;
     }
   },
   modules: {

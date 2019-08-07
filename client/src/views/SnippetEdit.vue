@@ -41,6 +41,7 @@ export default {
         };
     },
     created() {
+        // TODO: Validate user
         this.loadSnippet(this.id).then((response) => {
             this.loading = false;
             this.name = response.name;

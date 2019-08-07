@@ -54,6 +54,7 @@ export default {
                     content: this.content
                 });
                 this.loading = false;
+                this.$router.push('/');
             }
         }
     }

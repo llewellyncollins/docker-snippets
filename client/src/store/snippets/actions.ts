@@ -1,17 +1,11 @@
-import firebase from '../../firebase';
+import firebase from 'firebase/app';
 import { ActionTree } from 'vuex';
 import { RootState, SnippetsState } from '../interfaces';
 import Snippet from '../../../../interfaces/Snippet';
 
-const fireBaseFunctions = firebase.functions();
-const getSnippetsFunc = fireBaseFunctions.httpsCallable( 'getSnippets' );
-const getSnippetFunc = fireBaseFunctions.httpsCallable( 'getSnippet' );
-const addSnippetFunc = fireBaseFunctions.httpsCallable( 'addSnippet' );
-const editSnippetFunc = fireBaseFunctions.httpsCallable( 'editSnippet' );
-
 export const actions: ActionTree<SnippetsState, RootState> = {
     loadSnippets( { commit } ) {
-        return getSnippetsFunc( {
+        return firebase.functions().httpsCallable( 'getSnippets' )( {
             name: '',
             tag: '',
             limit: 10
@@ -21,20 +15,20 @@ export const actions: ActionTree<SnippetsState, RootState> = {
         } );
     },
     loadSnippet( { commit, state }, id ) {
-        return getSnippetFunc( { id } ).then( ( response ) => {
+        return firebase.functions().httpsCallable( 'getSnippet' )( { id } ).then( ( response ) => {
             const payload: Snippet = response && response.data;
             commit( 'SET_SNIPPET', payload );
             return payload;
         } );
     },
     addSnippet( { commit }, snippet ) {
-        return addSnippetFunc( snippet ).then( ( response ) => {
+        return firebase.functions().httpsCallable( 'addSnippet' )( snippet ).then( ( response ) => {
             const payload: Snippet = response && response.data;
             commit( 'SET_SNIPPET', payload );
         } );
     },
     editSnippet( { commit }, snippet ) {
-        return editSnippetFunc( snippet ).then( ( response ) => {
+        return firebase.functions().httpsCallable( 'editSnippet' )( snippet ).then( ( response ) => {
             const payload: Snippet = response && response.data;
             commit( 'SET_SNIPPET', payload );
         } );

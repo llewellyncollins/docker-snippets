@@ -10,7 +10,7 @@ export default async ( snippetData: Snippet ) => {
 
         validateSnippet( snippetData );
 
-        // TODO: Check if user own the snippet
+        // TODO: Check if user owns the snippet
         await db.collection( 'snippets' ).doc( snippetData.id ).update( snippetData );
 
         return {
