@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
+import 'firebase/firestore';
 
 import App from './App.vue';
 import router from './router';
@@ -44,15 +44,13 @@ new Vue( {
 
         firebase.auth().onAuthStateChanged( ( user ) => {
             if ( user ) {
-                this.$store.dispatch( 'user/updateUserLoggedIn', true );
-                this.$store.dispatch( 'user/updateUserDetails', {
-                    id: user.uid,
-                    email: user.email,
-                    displayName: user.displayName
-                } );
+                this.$store.dispatch( 'user/setUserLoggedInStatus', true );
+                this.$store.dispatch( 'user/setUserName', user.displayName );
+                this.$store.dispatch( 'user/setUserEmail', user.email );
+                this.$store.dispatch( 'user/setUserId', user.uid );
                 this.$router.push( '/' );
             } else {
-                this.$store.dispatch( 'user/updateUserLoggedIn', false );
+                this.$store.dispatch( 'user/setUserLoggedInStatus', false );
                 this.$router.push( '/auth' );
             }
 

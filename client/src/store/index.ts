@@ -1,28 +1,37 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
-import 'firebase/app';
-import 'firebase/functions';
-import 'firebase/firestore';
-import { RootState } from './interfaces';
-import { snippets } from './snippets/index';
-import { user } from './user/index';
+import snippets from './modules/snippets';
+import user from './modules/user';
 
 Vue.use( Vuex );
+interface State {
+  version?: string;
+  ready: boolean;
+  loading: boolean;
+}
 
-const store: StoreOptions<RootState> = {
-  state: {
-    version: '0.1.0',
-    ready: false,
-    loading: false
-  },
-  actions: {
-    setReadyState( { commit }, status ) {
-      commit( 'setReadyState', status );
+const defaultState: State = {
+  version: '0.1.0',
+  ready: false,
+  loading: false
+};
+
+const store: StoreOptions<State> = {
+  state: defaultState,
+  mutations: {
+    setReadyState( state, isReady: boolean ) {
+      state.ready = isReady;
+    },
+    setLoadingState( state, isLoading: boolean ) {
+      state.loading = isLoading;
     }
   },
-  mutations: {
-    setReadyState( state, status ) {
-      state.ready = status;
+  actions: {
+    setReadyState( { commit }, isReady: boolean ) {
+      commit( 'setReadyState', isReady );
+    },
+    setLoadingState( { commit }, isLoading: boolean ) {
+      commit( 'setLoadingState', isLoading );
     }
   },
   getters: {
@@ -39,4 +48,4 @@ const store: StoreOptions<RootState> = {
   }
 };
 
-export default new Vuex.Store<RootState>( store );
+export default new Vuex.Store( store );

@@ -5,10 +5,9 @@
 </template>
 
 <script>
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import ProgressBar from '@/components/ProgressBar';
-import 'firebase/auth';
 
 const uiConfig = {
     signInSuccessUrl: '/',
@@ -22,8 +21,11 @@ export default {
         ProgressBar
     },
     computed: {},
+    created() {
+        ///this.ui = new firebaseui.auth.AuthUI(firebase.auth());
+    },
     mounted() {
-        //ui.start('#auth-container', uiConfig);
+        //this.ui.start('#auth-container', uiConfig);
     }
 };
 </script>

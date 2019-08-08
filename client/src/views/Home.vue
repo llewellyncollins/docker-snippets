@@ -1,7 +1,7 @@
 <template>
     <div class="page home">
-        <ProgressBar :loading="!snippetList" />
-        <SnippetList v-if="snippetList" :snippets="snippetList" :uid="uid" />
+        <ProgressBar :loading="!featuredSnippets" />
+        <SnippetList v-if="featuredSnippets" :snippets="featuredSnippets" :uid="uid" />
     </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
         SnippetList
     },
     computed: {
-        ...mapState('snippets', ['snippetList']),
+        ...mapState('snippets', ['featuredSnippets']),
         ...mapState('user', ['uid'])
     }
 };
