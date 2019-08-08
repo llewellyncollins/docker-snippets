@@ -3,12 +3,12 @@
         <SnippetItem
             :id="snippet.id"
             :name="snippet.name"
-            :author="snippet.author"
+            :author="snippet.author.displayName"
             :description="snippet.description"
             :content="snippet.content"
             :downloads="snippet.downloads"
             :stars="snippet.stars"
-            :editable="snippet.userId === uid"
+            :editable="snippet.author.uid === uid"
             v-for="(snippet, index) in snippets"
             :key="index"
         />

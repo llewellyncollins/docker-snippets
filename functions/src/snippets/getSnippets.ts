@@ -27,11 +27,13 @@ export default async ( name: string, tag: string, limit: number ) => {
             const data = doc.data();
             snippets.push( {
                 id: doc.id,
-                userId: data.userId,
                 name: escape( data.name ),
                 content: escape( data.content ),
                 description: escape( data.description ),
-                tags: data.tags
+                tags: data.tags,
+                author: {
+                    uid: data.author.uid
+                }
             } );
         } );
 

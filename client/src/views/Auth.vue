@@ -22,10 +22,11 @@ export default {
     },
     computed: {},
     created() {
-        ///this.ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // this.ui = new firebaseui.auth.AuthUI(firebase.auth());
     },
     mounted() {
-        //this.ui.start('#auth-container', uiConfig);
+        // const ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // ui.start('#auth-container', uiConfig);
     }
 };
 </script>

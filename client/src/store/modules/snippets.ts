@@ -31,12 +31,15 @@ export default {
                         const data = doc.data();
                         return {
                             id: doc.id,
-                            userId: data.userId,
                             name: data.name,
                             content: data.content,
                             description: data.description,
-                            tags: data.tags
-                        }
+                            tags: data.tags,
+                            author: {
+                                uid: data!.author.uid,
+                                displayName: data!.author.displayName
+                            }
+                        };
                     } );
 
                     commit( 'setSnippets', payload );
@@ -49,11 +52,14 @@ export default {
 
                     const payload: Snippet = {
                         id: doc.id,
-                        userId: data!.userId,
                         name: data!.name,
                         content: data!.content,
                         description: data!.description,
-                        tags: data!.tags
+                        tags: data!.tags,
+                        author: {
+                            uid: data!.author.uid,
+                            displayName: data!.author.displayName
+                        }
                     };
 
                     commit( 'setActiveSnippet', payload );
@@ -63,18 +69,26 @@ export default {
         },
         addSnippet( { commit }: Store<State>, snippet: Snippet ) {
             // TODO: Validate
-            const userId = firebase.auth().currentUser!.uid;
+            const currentUser = firebase.auth().currentUser;
+            const uid = currentUser!.uid;
+            const displayName = currentUser!.displayName;
             return firebase.firestore().collection( 'snippets' ).add( {
                 ...snippet,
-                userId
+                author: {
+                    uid,
+                    displayName
+                }
             } ).then( ( doc ) => {
                 const payload: Snippet = {
                     id: doc.id,
-                    userId,
                     name: snippet.name,
                     content: snippet.content,
                     description: snippet.description,
-                    tags: snippet.tags
+                    tags: snippet.tags,
+                    author: {
+                        uid,
+                        displayName
+                    }
                 };
 
                 commit( 'setActiveSnippet', payload );

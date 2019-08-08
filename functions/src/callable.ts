@@ -28,27 +28,31 @@ export const deleteTag = functions.https.onCall( ( data, context ) => {
 } );
 
 export const addSnippet = functions.https.onCall( ( data, context ) => {
-    const userId = context.auth.uid;
+    const uid = context.auth.uid;
     const { name, description, content } = data;
     return addSnippetFunc( {
         name,
         description,
         content,
-        userId,
-        tags: []
+        tags: [],
+        author: {
+            uid
+        }
     } ).catch( e => { throw new functions.https.HttpsError( 'cancelled', e.message ) } );
 } );
 
 export const editSnippet = functions.https.onCall( ( data, context ) => {
-    const userId = context.auth.uid;
+    const uid = context.auth.uid;
     const { id, name, description, content } = data;
     return editSnippetFunc( {
         id,
         name,
         description,
         content,
-        userId,
-        tags: []
+        tags: [],
+        author: {
+            uid
+        }
     } ).catch( e => { throw new functions.https.HttpsError( 'cancelled', e.message ) } );
 } );
 
