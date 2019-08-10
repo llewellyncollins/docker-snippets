@@ -22,6 +22,11 @@ export default {
         setActiveSnippet( state: State, snippet: Snippet ) {
             state.activeSnippet = snippet;
         },
+        addSnippet( state: State, snippet: Snippet ) {
+            if ( state.snippetList && snippet ) {
+                state.snippetList.push( snippet );
+            }
+        },
         deleteSnippet( state: State, id: string ) {
             if ( state.snippetList ) {
                 const index = state.snippetList.findIndex( ( snippet ) => {
@@ -114,6 +119,7 @@ export default {
                     }
                 };
 
+                commit( 'addSnippet', payload );
                 commit( 'setActiveSnippet', payload );
             } );
         },

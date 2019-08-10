@@ -1,12 +1,12 @@
 <template>
     <div class="page view">
-        <ProgressBar :loading="loading" />
-        <div v-if="!loading">
+        <ProgressBar :loading="loading || !activeSnippet" />
+        <div v-if="!loading && activeSnippet">
             <v-card class="mb-3">
                 <v-card-title primary-title>
                     <div>
-                        <h3 class="headline mb-0 info-name">{{ name }}</h3>
-                        <div class="info-author">By User: {{ author }}</div>
+                        <h3 class="headline mb-0 info-name">{{ activeSnippet.name }}</h3>
+                        <div class="info-author">By User: {{ activeSnippet.author.displayName }}</div>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
@@ -34,7 +34,7 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ProgressBar from '@/components/ProgressBar';
 
 const regex = /{{([a-zA-Z]+):([a-zA-Z0-9]+)}}/g;
@@ -45,31 +45,25 @@ export default {
     data() {
         return {
             loading: true,
-            name: '',
-            author: '',
-            content: '',
             liveContent: '',
             variables: []
         };
     },
-    created() {
-        this.loadSnippet(this.id).then((response) => {
-            this.loading = false;
-            this.name = response.name;
-            this.author = response.author;
-            this.content = response.content;
+    async created() {
+        await this.loadSnippet(this.id);
 
-            const variables = [...response.content.matchAll(regex)];
+        this.loading = false;
+        const variables = [...this.activeSnippet.content.matchAll(regex)];
 
-            this.variables = variables.map((variable) => {
-                return {
-                    name: variable[1],
-                    value: variable[2]
-                };
-            });
+        this.variables = variables.map((variable) => {
+            return {
+                name: variable[1],
+                value: variable[2]
+            };
         });
     },
     computed: {
+        ...mapGetters('snippets', ['activeSnippet']),
         id() {
             return this.$route.params.id;
         }
@@ -79,7 +73,7 @@ export default {
             const content = this.variables.reduce((output, variable) => {
                 const regexStr = `{{${variable.name}:[a-zA-Z0-9]+}}`;
                 return output.replace(new RegExp(regexStr, 'g'), variable.value);
-            }, this.content);
+            }, this.activeSnippet.content);
 
             this.liveContent = content;
         }

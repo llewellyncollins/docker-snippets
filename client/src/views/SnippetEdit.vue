@@ -1,16 +1,22 @@
 <template>
     <div class="page edit">
-        <ProgressBar :loading="loading" />
-        <v-form v-if="!loading" v-model="valid" ref="form" lazy-validation>
-            <v-text-field v-model="name" :counter="30" :rules="nameRules" label="Name" required clearable></v-text-field>
-            <v-textarea v-model="description" :counter="500" :rules="descriptionRules" label="Description" auto-grow></v-textarea>
-            <v-textarea v-model="content" :counter="1000" :rules="contentRules" label="Dockerfile" auto-grow></v-textarea>
+        <ProgressBar :loading="loading || !activeSnippet" />
+        <v-form v-if="!loading && activeSnippet" v-model="valid" ref="form" lazy-validation>
+            <v-text-field v-model="activeSnippet.name" :counter="30" :rules="nameRules" label="Name" required clearable></v-text-field>
+            <v-textarea
+                v-model="activeSnippet.description"
+                :counter="500"
+                :rules="descriptionRules"
+                label="Description"
+                auto-grow
+            ></v-textarea>
+            <v-textarea v-model="activeSnippet.content" :counter="1000" :rules="contentRules" label="Dockerfile" auto-grow></v-textarea>
             <v-btn :disabled="!valid" :loading="submitting" @click="submit">Edit</v-btn>
         </v-form>
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ProgressBar from '@/components/ProgressBar';
 
 export default {
@@ -40,17 +46,12 @@ export default {
             ]
         };
     },
-    created() {
-        // TODO: Validate user
-        this.loadSnippet(this.id).then((response) => {
-            this.loading = false;
-            this.name = response.name;
-            this.author = response.author;
-            this.content = response.content;
-            this.description = response.description;
-        });
+    async created() {
+        await this.loadSnippet(this.id);
+        this.loading = false;
     },
     computed: {
+        ...mapGetters('snippets', ['activeSnippet']),
         id() {
             return this.$route.params.id;
         }
@@ -60,15 +61,12 @@ export default {
         async submit() {
             if (this.$refs.form.validate()) {
                 this.submitting = true;
-                await this.editSnippet({
-                    id: this.id,
-                    name: this.name,
-                    description: this.description,
-                    content: this.content
-                });
+
+                await this.editSnippet(this.activeSnippet);
+
                 this.submitting = false;
 
-                // TODO: Navigate to snippet
+                this.$router.push('/');
             }
         }
     }
