@@ -70,7 +70,7 @@ export default {
                 name: state.displayName,
                 email: state.email,
                 id: state.uid
-            }
+            };
         }
     }
 };

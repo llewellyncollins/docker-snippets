@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import firebase from './firebase';
 
 import App from './App.vue';
 import router from './router';
@@ -25,23 +23,13 @@ Vue.use( Vuetify, {
     }
 } );
 
-const firebaseConfig = {
-    apiKey: 'AIzaSyC6cTNDv3SJ1hSWiENsgVe90-BWMCBwcOA',
-    authDomain: 'docker-snippets.firebaseapp.com',
-    databaseURL: 'https://docker-snippets.firebaseio.com',
-    projectId: 'docker-snippets',
-    storageBucket: 'docker-snippets.appspot.com',
-    messagingSenderId: '681353270380',
-    appId: '1:681353270380:web:6f7e2501b670890d'
-};
+
 
 new Vue( {
     router,
     store,
     render: ( h ) => h( App ),
     created() {
-        firebase.initializeApp( firebaseConfig );
-
         firebase.auth().onAuthStateChanged( ( user ) => {
             if ( user ) {
                 this.$store.dispatch( 'user/setUserLoggedInStatus', true );
