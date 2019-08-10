@@ -21,6 +21,18 @@ export default {
         },
         setActiveSnippet( state: State, snippet: Snippet ) {
             state.activeSnippet = snippet;
+        },
+        deleteSnippet( state: State, id: string ) {
+            if ( state.featuredSnippets ) {
+                const index = state.featuredSnippets.findIndex( ( snippet ) => {
+                    return snippet.id === id;
+                } );
+
+                if ( index !== -1 ) {
+                    state.featuredSnippets.splice( index, 1 );
+                }
+            }
+
         }
     },
     actions: {
@@ -93,6 +105,12 @@ export default {
 
                 commit( 'setActiveSnippet', payload );
             } );
+        },
+        deleteSnippet( { commit }: Store<State>, id: string ) {
+            return firebase.firestore().collection( 'snippets' ).doc( id ).delete()
+                .then( () => {
+                    commit( 'deleteSnippet', id );
+                } );
         },
         editSnippet( { commit }: Store<State>, snippet: Snippet ) {
             // TODO: Validate
