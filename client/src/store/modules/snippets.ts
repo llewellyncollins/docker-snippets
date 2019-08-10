@@ -32,7 +32,18 @@ export default {
                     state.snippetList.splice( index, 1 );
                 }
             }
+        },
+        editSnippet( state: State, editedSnippet: Snippet ) {
+            if ( state.snippetList ) {
+                const index = state.snippetList.findIndex( ( snippet ) => {
+                    return snippet.id === editedSnippet.id;
+                } );
 
+                const oldSnippet = state.snippetList[ index ];
+                if ( oldSnippet ) {
+                    state.snippetList[ index ] = Object.assign( oldSnippet, editedSnippet );
+                }
+            }
         }
     },
     actions: {
@@ -119,6 +130,7 @@ export default {
                 content: snippet.content,
                 description: snippet.description
             } ).then( () => {
+                commit( 'editSnippet', snippet );
                 commit( 'setActiveSnippet', snippet );
             } );
         }
