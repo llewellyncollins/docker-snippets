@@ -4,12 +4,12 @@ import Snippet from '../../../../interfaces/Snippet';
 
 interface State {
     activeSnippet?: Snippet;
-    featuredSnippets?: Snippet[];
+    snippetList?: Snippet[];
 }
 
 const defaultState: State = {
     activeSnippet: undefined,
-    featuredSnippets: undefined
+    snippetList: undefined
 };
 
 export default {
@@ -17,19 +17,19 @@ export default {
     state: defaultState,
     mutations: {
         setSnippets( state: State, newSnippets: Snippet[] ) {
-            state.featuredSnippets = newSnippets;
+            state.snippetList = newSnippets;
         },
         setActiveSnippet( state: State, snippet: Snippet ) {
             state.activeSnippet = snippet;
         },
         deleteSnippet( state: State, id: string ) {
-            if ( state.featuredSnippets ) {
-                const index = state.featuredSnippets.findIndex( ( snippet ) => {
+            if ( state.snippetList ) {
+                const index = state.snippetList.findIndex( ( snippet ) => {
                     return snippet.id === id;
                 } );
 
                 if ( index !== -1 ) {
-                    state.featuredSnippets.splice( index, 1 );
+                    state.snippetList.splice( index, 1 );
                 }
             }
 
@@ -127,8 +127,8 @@ export default {
         activeSnippet( state: State ) {
             return state.activeSnippet;
         },
-        featuredSnippets( state: State ) {
-            return state.featuredSnippets;
+        snippetList( state: State ) {
+            return state.snippetList;
         }
     }
 };

@@ -1,12 +1,12 @@
 <template>
     <div class="page home">
-        <ProgressBar :loading="!featuredSnippets" />
-        <SnippetList v-if="featuredSnippets" :snippets="featuredSnippets" :uid="uid" />
+        <ProgressBar :loading="!snippetList" />
+        <SnippetList v-if="snippetList" :snippets="snippetList" :uid="uid" />
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 import ProgressBar from '@/components/ProgressBar';
 import SnippetList from '@/components/SnippetList';
 
@@ -17,7 +17,7 @@ export default {
         SnippetList
     },
     computed: {
-        ...mapState('snippets', ['featuredSnippets']),
+        ...mapGetters('snippets', ['snippetList']),
         ...mapState('user', ['uid'])
     }
 };
