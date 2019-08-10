@@ -12,6 +12,8 @@ const defaultState: State = {
     snippetList: undefined
 };
 
+const increment = firebase.firestore.FieldValue.increment( 1 );
+
 export default {
     namespaced: true,
     state: defaultState,
@@ -49,24 +51,29 @@ export default {
                     state.snippetList[ index ] = Object.assign( oldSnippet, editedSnippet );
                 }
             }
+        },
+        incrementSnippetCopies( state: State, id: string ) {
+            if ( state.snippetList ) {
+                const index = state.snippetList.findIndex( ( snippet ) => {
+                    return snippet.id === id;
+                } );
+
+                const oldSnippet = state.snippetList[ index ];
+                if ( oldSnippet ) {
+                    state.snippetList[ index ].copyCount++;
+                }
+            }
         }
     },
     actions: {
         loadSnippets( { commit }: Store<State> ) {
             return firebase.firestore().collection( 'snippets' ).limit( 10 ).get()
                 .then( ( querySnapShot ) => {
-                    const payload: Snippet[] = querySnapShot.docs.map( ( doc ) => {
+                    const payload = querySnapShot.docs.map( ( doc ) => {
                         const data = doc.data();
                         return {
                             id: doc.id,
-                            name: data.name,
-                            content: data.content,
-                            description: data.description,
-                            tags: data.tags,
-                            author: {
-                                uid: data!.author.uid,
-                                displayName: data!.author.displayName
-                            }
+                            ...data
                         };
                     } );
 
@@ -78,16 +85,9 @@ export default {
                 .then( ( doc ) => {
                     const data = doc.data();
 
-                    const payload: Snippet = {
+                    const payload = {
                         id: doc.id,
-                        name: data!.name,
-                        content: data!.content,
-                        description: data!.description,
-                        tags: data!.tags,
-                        author: {
-                            uid: data!.author.uid,
-                            displayName: data!.author.displayName
-                        }
+                        ...data
                     };
 
                     commit( 'setActiveSnippet', payload );
@@ -106,6 +106,8 @@ export default {
                     uid,
                     displayName
                 }
+            } ).then( ( doc ) => {
+                return doc.get();
             } ).then( ( doc ) => {
                 const payload: Snippet = {
                     id: doc.id,
@@ -139,6 +141,12 @@ export default {
                 commit( 'editSnippet', snippet );
                 commit( 'setActiveSnippet', snippet );
             } );
+        },
+        incrementSnippetCopies( { commit }: Store<State>, snippetId: string ) {
+            return firebase.firestore().collection( 'snippets' ).doc( snippetId )
+                .update( { copyCount: increment } ).then( () => {
+                    commit( 'incrementSnippetCopies', snippetId );
+                } );
         }
     },
     getters: {

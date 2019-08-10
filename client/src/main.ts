@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import VueClipboard from 'vue-clipboard2';
 import firebase from './firebase';
 
 import App from './App.vue';
@@ -23,7 +24,7 @@ Vue.use( Vuetify, {
     }
 } );
 
-
+Vue.use( VueClipboard )
 
 new Vue( {
     router,
@@ -36,7 +37,6 @@ new Vue( {
                 this.$store.dispatch( 'user/setUserName', user.displayName );
                 this.$store.dispatch( 'user/setUserEmail', user.email );
                 this.$store.dispatch( 'user/setUserId', user.uid );
-                this.$router.push( '/' );
             } else {
                 this.$store.dispatch( 'user/setUserLoggedInStatus', false );
                 this.$router.push( '/auth' );

@@ -11,8 +11,8 @@
                 </div>
             </div>
             <v-spacer></v-spacer>
-            <Counter label="downlads" :value="downloads" />
-            <Counter label="stars" :value="stars" />
+            <Counter label="copies" :value="copyCount" />
+            <Counter label="stars" :value="starCount" />
         </v-card-title>
 
         <v-card-text class="snippet-description">
@@ -42,8 +42,8 @@ export default {
         author: String,
         content: String,
         description: String,
-        downloads: Number,
-        stars: Number,
+        copyCount: Number,
+        starCount: Number,
         editable: Boolean
     },
     data() {
@@ -51,20 +51,8 @@ export default {
             liveContent: ''
         };
     },
-    computed: {
-        downloadLink() {
-            const file = new Blob([this.content], {
-                type: 'text/plain;charset=utf-8'
-            });
-
-            return URL.createObjectURL(file);
-        }
-    },
     methods: {
-        ...mapActions('snippets', ['deleteSnippet']),
-        download() {
-            // TODO
-        }
+        ...mapActions('snippets', ['deleteSnippet'])
     }
 };
 </script>

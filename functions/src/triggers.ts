@@ -12,3 +12,10 @@ export const createUser = functions.auth.user().onCreate( ( user ) => {
         snippetCount: 0
     } );
 } );
+
+export const createSnippet = functions.firestore.document( 'snippets/{snippetId}' ).onCreate( ( snapshot ) => {
+    return snapshot.ref.set( {
+        copyCount: 0,
+        starCount: 0
+    }, { merge: true } )
+} );
