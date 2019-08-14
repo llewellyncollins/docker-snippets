@@ -34,6 +34,8 @@ export const addSnippet = functions.https.onCall( ( data, context ) => {
         name,
         description,
         content,
+        copyCount: 0,
+        starCount: 0,
         tags: [],
         author: {
             uid
@@ -49,6 +51,8 @@ export const editSnippet = functions.https.onCall( ( data, context ) => {
         name,
         description,
         content,
+        copyCount: 0,
+        starCount: 0,
         tags: [],
         author: {
             uid

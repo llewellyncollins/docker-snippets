@@ -7,15 +7,9 @@
     "rules": {
         "quotemark": [true, "single"],
         "indent": [true, "spaces", 2],
-        "only-arrow-functions": [
-            true,
-            "allow-declarations",
-            "allow-named-functions"
-        ],
-        "trailing-comma": [
-            true,
-            { "multiline": "never", "singleline": "never" }
-        ],
+        "noExplicitAny": false,
+        "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
         "interface-name": false,
         "ordered-imports": false,
         "object-literal-sort-keys": false,

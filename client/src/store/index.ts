@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex, { StoreOptions } from 'vuex';
+import Vuex, { StoreOptions, ModuleTree } from 'vuex';
 import snippets from './modules/snippets';
 import user from './modules/user';
 
@@ -15,6 +15,11 @@ const defaultState: State = {
   ready: false,
   loading: false
 };
+
+const modules: any = {
+  snippets,
+  user
+}
 
 const store: StoreOptions<State> = {
   state: defaultState,
@@ -42,10 +47,7 @@ const store: StoreOptions<State> = {
       return state.loading;
     }
   },
-  modules: {
-    snippets,
-    user
-  }
+  modules
 };
 
 export default new Vuex.Store( store );

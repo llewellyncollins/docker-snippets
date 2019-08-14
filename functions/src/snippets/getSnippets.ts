@@ -30,6 +30,8 @@ export default async ( name: string, tag: string, limit: number ) => {
                 name: escape( data.name ),
                 content: escape( data.content ),
                 description: escape( data.description ),
+                copyCount: 0,
+                starCount: 0,
                 tags: data.tags,
                 author: {
                     uid: data.author.uid

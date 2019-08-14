@@ -136,6 +136,8 @@ export default {
                     content: snippet.content,
                     description: snippet.description,
                     tags: snippet.tags,
+                    copyCount: snippet.copyCount,
+                    starCount: snippet.starCount,
                     author: {
                         uid,
                         displayName
