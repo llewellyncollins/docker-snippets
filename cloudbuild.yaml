@@ -1,0 +1,16 @@
+steps:
+# Install
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'client'
+  args: ['install']
+
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'client'
+  args: ['run','test:unit']
+
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'client'
+  args: ['run','build']
+
+- name: 'gcr.io/$PROJECT_ID/firebase'
+  args: ['deploy']

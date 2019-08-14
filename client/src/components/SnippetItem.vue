@@ -20,7 +20,7 @@
         </v-card-text>
 
         <v-card-actions>
-            <v-btn name="star" flat color="orange">Star</v-btn>
+            <v-btn name="star" flat color="orange" :enabled="starred">Star</v-btn>
             <v-btn name="customise" flat color="orange" :to="`/snippet/${id}`">Customise</v-btn>
             <v-btn v-if="editable" name="edit" flat color="orange" :to="`/snippet/edit/${id}`">Edit</v-btn>
             <v-btn v-if="editable" name="delete" flat color="orange" @click="deleteSnippet(id)">Delete</v-btn>
@@ -40,11 +40,13 @@ export default {
         id: String,
         name: String,
         author: String,
+        authorId: String,
         content: String,
         description: String,
         copyCount: Number,
         starCount: Number,
-        editable: Boolean
+        editable: Boolean,
+        starred: Boolean
     },
     data() {
         return {
@@ -52,7 +54,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions('snippets', ['deleteSnippet'])
+        ...mapActions('snippets', ['deleteSnippet', 'addStar', 'removeStar'])
     }
 };
 </script>

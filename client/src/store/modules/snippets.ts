@@ -5,11 +5,13 @@ import Snippet from '../../../../interfaces/Snippet';
 interface State {
     activeSnippet?: Snippet;
     snippetList?: Snippet[];
+    starredSnippetIds: string[];
 }
 
 const defaultState: State = {
     activeSnippet: undefined,
-    snippetList: undefined
+    snippetList: undefined,
+    starredSnippetIds: [],
 };
 
 const increment = firebase.firestore.FieldValue.increment( 1 );
@@ -58,14 +60,33 @@ export default {
                     return snippet.id === id;
                 } );
 
-                const oldSnippet = state.snippetList[ index ];
-                if ( oldSnippet ) {
+                if ( state.snippetList[ index ] ) {
                     state.snippetList[ index ].copyCount++;
                 }
+            }
+        },
+        setStarredSnippets( state: State, starredSnippetIds: string[] ) {
+            state.starredSnippetIds = starredSnippetIds;
+        },
+        addStar( state: State, snippetId: string ) {
+            state.starredSnippetIds.push( snippetId );
+        },
+        removeStar( state: State, snippetId: string ) {
+            const index = state.starredSnippetIds.indexOf( snippetId );
+            if ( index !== -1 ) {
+                state.starredSnippetIds.splice( index, 1 );
             }
         }
     },
     actions: {
+        loadStarredSnippets( { commit }: Store<State>, uid: string ) {
+            return firebase.firestore().collection( 'stars' )
+                .where( 'userId', '==', uid ).get()
+                .then( ( querySnapShot ) => {
+                    const starredSnippetIds = querySnapShot.docs.map( ( doc ) => doc.id );
+                    commit( 'setStarredSnippets', starredSnippetIds );
+                } );
+        },
         loadSnippets( { commit }: Store<State> ) {
             return firebase.firestore().collection( 'snippets' ).limit( 10 ).get()
                 .then( ( querySnapShot ) => {
@@ -147,6 +168,19 @@ export default {
                 .update( { copyCount: increment } ).then( () => {
                     commit( 'incrementSnippetCopies', snippetId );
                 } );
+        },
+        addStar( { commit }: Store<State>, userId: string, snippetId: string ) {
+            return firebase.firestore().collection( 'stars' ).doc( `${ userId }_${ snippetId }` ).set( {
+                userId,
+                snippetId
+            } ).then( () => {
+                commit( 'addStar', snippetId )
+            } );
+        },
+        removeStar( { commit }: Store<State>, userId: string, snippetId: string ) {
+            return firebase.firestore().collection( 'stars' ).doc( `${ userId }_${ snippetId }` ).delete().then( () => {
+                commit( 'removeStar', snippetId )
+            } );
         }
     },
     getters: {

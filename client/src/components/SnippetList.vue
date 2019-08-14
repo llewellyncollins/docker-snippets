@@ -4,6 +4,7 @@
             :id="snippet.id"
             :name="snippet.name"
             :author="snippet.author.displayName"
+            :authorId="snippet.author.uid"
             :description="snippet.description"
             :content="snippet.content"
             :copyCount="snippet.copyCount"
@@ -15,6 +16,7 @@
     </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import SnippetItem from '@/components/SnippetItem';
 
 export default {
@@ -25,6 +27,9 @@ export default {
     props: {
         snippets: Array,
         uid: String
+    },
+    computed: {
+        ...mapGetters('user', ['userDetails'])
     }
 };
 </script>
