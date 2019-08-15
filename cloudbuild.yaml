@@ -10,7 +10,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
-  args: ['run','build']
+  args: ['run','build', '--prod']
 
 - name: 'gcr.io/$PROJECT_ID/firebase'
   args: ['deploy']
