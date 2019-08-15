@@ -13,6 +13,14 @@ steps:
   args: ['run','build', '--prod']
 
 - name: 'gcr.io/cloud-builders/npm'
+  dir: 'admin-site'
+  args: ['install']
+
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'admin-site'
+  args: ['run','build', '--prod']
+
+- name: 'gcr.io/cloud-builders/npm'
   dir: 'functions'
   args: ['install']
 
