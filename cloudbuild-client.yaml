@@ -12,7 +12,7 @@ steps:
   waitFor: ['-']
 
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['install',]
+  args: ['install', '--only=prod']
   id: ROOT_INSTALL
   waitFor: ['-']
 
