@@ -62,5 +62,13 @@ steps:
     - ADMIN_BUILD
     - CLIENT_BUILD
 
+substitutions:
+    _FIREBASE_API_KEY: ''
+    _FIREBASE_AUTH_DOMAIN: ''
+    _FIREBASE_DATABASE_URL: ''
+    _FIREBASE_PROJECT_ID: ''
+    _FIREBASE_STORAGE_BUCKET: ''
+    _FIREBASE_SENDER_ID: ''
+    _FIREBASE_APP_ID: ''
 options:
     substitution_option: 'ALLOW_LOOSE'
