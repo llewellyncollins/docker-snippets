@@ -4,7 +4,6 @@
     "description": "[![CircleCI](https://circleci.com/gh/llewellyn1411/docker-snippets.svg?style=svg)](https://circleci.com/gh/llewellyn1411/docker-snippets)",
     "devDependencies": {
         "concurrently": "^4.1.2",
-        "cross-env": "^5.2.0",
         "husky": "^3.0.3"
     },
     "scripts": {
@@ -15,7 +14,8 @@
         "test:client": "cd client && npm run test:unit",
         "test:admin": "",
         "test:functions": "",
-        "test": "concurrently \"npm run test:client\""
+        "test": "concurrently \"npm run test:client\"",
+        "deploy": "firebase deploy --debug --token \"$FIREBASE_TOKEN\""
     },
     "husky": {
         "pre-commit": "npm run lint",

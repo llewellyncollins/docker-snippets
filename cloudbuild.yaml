@@ -1,5 +1,14 @@
 steps:
-# Install
+- name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=.env.enc
+  - --plaintext-file=.env
+  - --location=global
+  - --keyring=docker-snippets
+  - --key=docker-snippets-env
+
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
   args: ['install']
@@ -15,17 +24,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
-  args: [
-    'cross-env',
-    'VUE_APP_FIREBASE_API_KEY=${_FIREBASE_API_KEY}',
-    'VUE_APP_FIREBASE_AUTH_DOMAIN=${_FIREBASE_AUTH_DOMAIN}',
-    'VUE_APP_FIREBASE_DATABASE_URL=${_FIREBASE_DATABASE_URL}',
-    'VUE_APP_FIREBASE_PROJECT_ID=${_FIREBASE_PROJECT_ID}',
-    'VUE_APP_FIREBASE_STORAGE_BUCKET=${_FIREBASE_STORAGE_BUCKET}',
-    'VUE_APP_FIREBASE_MESSAGE_SENDER_ID=${_FIREBASE_SENDER_ID}',
-    'VUE_APP_FIREBASE_APP_ID=${_FIREBASE_APP_ID}',
-    'run','build', '--prod'
-  ]
+  args: ['run','build', '--prod']
   id: CLIENT_BUILD
   waitFor:
     - CLIENT_TEST
@@ -39,17 +38,7 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'admin-site'
   id: ADMIN_BUILD
-  args: [
-    'cross-env',
-    'VUE_APP_FIREBASE_API_KEY=${_FIREBASE_API_KEY}',
-    'VUE_APP_FIREBASE_AUTH_DOMAIN=${_FIREBASE_AUTH_DOMAIN}',
-    'VUE_APP_FIREBASE_DATABASE_URL=${_FIREBASE_DATABASE_URL}',
-    'VUE_APP_FIREBASE_PROJECT_ID=${_FIREBASE_PROJECT_ID}',
-    'VUE_APP_FIREBASE_STORAGE_BUCKET=${_FIREBASE_STORAGE_BUCKET}',
-    'VUE_APP_FIREBASE_MESSAGE_SENDER_ID=${_FIREBASE_SENDER_ID}',
-    'VUE_APP_FIREBASE_APP_ID=${_FIREBASE_APP_ID}',
-    'run','build', '--prod'
-  ]
+  args: ['run','build', '--prod']
   waitFor:
     - ADMIN_INSTALL
 
@@ -59,20 +48,9 @@ steps:
   id: FUNCTIONS_INSTALL
   waitFor: ['-']
 
-- name: 'gcr.io/$PROJECT_ID/firebase'
-  args: ['deploy']
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'deploy']
   waitFor:
     - FUNCTIONS_INSTALL
     - ADMIN_BUILD
     - CLIENT_BUILD
-
-substitutions:
-    _FIREBASE_API_KEY: ''
-    _FIREBASE_AUTH_DOMAIN: ''
-    _FIREBASE_DATABASE_URL: ''
-    _FIREBASE_PROJECT_ID: ''
-    _FIREBASE_STORAGE_BUCKET: ''
-    _FIREBASE_SENDER_ID: ''
-    _FIREBASE_APP_ID: ''
-options:
-    substitution_option: 'ALLOW_LOOSE'
