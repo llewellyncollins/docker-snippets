@@ -12,6 +12,11 @@ steps:
   waitFor: ['-']
 
 - name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  id: ROOT_INSTALL
+  waitFor: ['-']
+
+- name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
   args: ['install']
   id: CLIENT_INSTALL
@@ -56,6 +61,7 @@ steps:
   args: ['run', 'deploy']
   waitFor:
     - FUNCTIONS_INSTALL
+    - ROOT_INSTALL
     - ADMIN_BUILD
     - CLIENT_BUILD
     - DECRYPT

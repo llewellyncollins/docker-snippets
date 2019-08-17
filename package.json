@@ -15,7 +15,7 @@
         "test:admin": "",
         "test:functions": "",
         "test": "concurrently \"npm run test:client\"",
-        "deploy": "firebase deploy --token \"$FIREBASE_TOKEN\""
+        "deploy": "firebase deploy --debug --token \"$FIREBASE_TOKEN\""
     },
     "husky": {
         "pre-commit": "npm run lint",
@@ -30,5 +30,8 @@
     "bugs": {
         "url": "https://github.com/llewellyn1411/docker-snippets/issues"
     },
-    "homepage": "https://github.com/llewellyn1411/docker-snippets#readme"
+    "homepage": "https://github.com/llewellyn1411/docker-snippets#readme",
+    "dependencies": {
+        "firebase": "^6.4.0"
+    }
 }
