@@ -8,6 +8,8 @@ steps:
   - --location=global
   - --keyring=docker-snippets
   - --key=docker-snippets-env
+  id: DECRYPT
+  waitFor: ['-']
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
@@ -28,6 +30,7 @@ steps:
   id: CLIENT_BUILD
   waitFor:
     - CLIENT_TEST
+    - DECRYPT
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'admin-site'
@@ -41,6 +44,7 @@ steps:
   args: ['run','build', '--prod']
   waitFor:
     - ADMIN_INSTALL
+    - DECRYPT
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'functions'
@@ -54,3 +58,4 @@ steps:
     - FUNCTIONS_INSTALL
     - ADMIN_BUILD
     - CLIENT_BUILD
+    - DECRYPT

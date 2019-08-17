@@ -15,7 +15,7 @@
         "test:admin": "",
         "test:functions": "",
         "test": "concurrently \"npm run test:client\"",
-        "deploy": "firebase deploy --debug --token \"$FIREBASE_TOKEN\""
+        "deploy": "firebase deploy --token \"$FIREBASE_TOKEN\""
     },
     "husky": {
         "pre-commit": "npm run lint",
