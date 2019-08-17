@@ -10,6 +10,7 @@
             :copyCount="snippet.copyCount"
             :starCount="snippet.starCount"
             :editable="snippet.author.uid === uid"
+            :starred="starredSnippetIds.includes(snippet.id)"
             v-for="(snippet, index) in snippets"
             :key="index"
         />
@@ -29,7 +30,8 @@ export default {
         uid: String
     },
     computed: {
-        ...mapGetters('user', ['userDetails'])
+        ...mapGetters('user', ['userDetails']),
+        ...mapGetters('snippets', ['starredSnippetIds'])
     }
 };
 </script>

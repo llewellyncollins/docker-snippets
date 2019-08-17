@@ -24,7 +24,7 @@ Vue.use( Vuetify, {
     }
 } );
 
-Vue.use( VueClipboard )
+Vue.use( VueClipboard );
 
 new Vue( {
     router,
@@ -37,7 +37,7 @@ new Vue( {
                 this.$store.dispatch( 'user/setUserName', user.displayName );
                 this.$store.dispatch( 'user/setUserEmail', user.email );
                 this.$store.dispatch( 'user/setUserId', user.uid );
-                this.$store.dispatch( 'snippets/loadStarredSnippets', user.uid )
+                this.$store.dispatch( 'snippets/loadStarredSnippets', user.uid );
             } else {
                 this.$store.dispatch( 'user/setUserLoggedInStatus', false );
                 this.$router.push( '/auth' );

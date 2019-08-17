@@ -20,7 +20,8 @@
         </v-card-text>
 
         <v-card-actions>
-            <v-btn name="star" flat color="orange" :enabled="starred">Star</v-btn>
+            <v-btn name="star" flat color="orange" :loading="starLoading" v-if="!starred" @click="onAddStar">Star</v-btn>
+            <v-btn name="star" flat color="orange" :loading="starLoading" v-if="starred" @click="onRemoveStar">Un Star</v-btn>
             <v-btn name="customise" flat color="orange" :to="`/snippet/${id}`">Customise</v-btn>
             <v-btn v-if="editable" name="edit" flat color="orange" :to="`/snippet/edit/${id}`">Edit</v-btn>
             <v-btn v-if="editable" name="delete" flat color="orange" @click="deleteSnippet(id)">Delete</v-btn>
@@ -50,11 +51,21 @@ export default {
     },
     data() {
         return {
-            liveContent: ''
+            starLoading: false
         };
     },
     methods: {
-        ...mapActions('snippets', ['deleteSnippet', 'addStar', 'removeStar'])
+        ...mapActions('snippets', ['deleteSnippet', 'addStar', 'removeStar']),
+        async onAddStar() {
+            this.starLoading = true;
+            await this.addStar({ userId: this.authorId, snippetId: this.id });
+            this.starLoading = false;
+        },
+        async onRemoveStar() {
+            this.starLoading = true;
+            await this.removeStar({ userId: this.authorId, snippetId: this.id });
+            this.starLoading = false;
+        }
     }
 };
 </script>

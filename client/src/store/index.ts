@@ -19,7 +19,7 @@ const defaultState: State = {
 const modules: any = {
   snippets,
   user
-}
+};
 
 const store: StoreOptions<State> = {
   state: defaultState,

@@ -8,10 +8,15 @@ interface State {
     starredSnippetIds: string[];
 }
 
+interface EditStarPayload {
+    userId: string;
+    snippetId: string;
+}
+
 const defaultState: State = {
     activeSnippet: undefined,
     snippetList: undefined,
-    starredSnippetIds: [],
+    starredSnippetIds: []
 };
 
 const increment = firebase.firestore.FieldValue.increment( 1 );
@@ -83,7 +88,7 @@ export default {
             return firebase.firestore().collection( 'stars' )
                 .where( 'userId', '==', uid ).get()
                 .then( ( querySnapShot ) => {
-                    const starredSnippetIds = querySnapShot.docs.map( ( doc ) => doc.id );
+                    const starredSnippetIds = querySnapShot.docs.map( ( doc ) => doc.data().snippetId );
                     commit( 'setStarredSnippets', starredSnippetIds );
                 } );
         },
@@ -171,17 +176,19 @@ export default {
                     commit( 'incrementSnippetCopies', snippetId );
                 } );
         },
-        addStar( { commit }: Store<State>, userId: string, snippetId: string ) {
+        addStar( { commit }: Store<State>, payload: EditStarPayload ) {
+            const { userId, snippetId } = payload;
             return firebase.firestore().collection( 'stars' ).doc( `${ userId }_${ snippetId }` ).set( {
                 userId,
                 snippetId
             } ).then( () => {
-                commit( 'addStar', snippetId )
+                commit( 'addStar', snippetId );
             } );
         },
-        removeStar( { commit }: Store<State>, userId: string, snippetId: string ) {
+        removeStar( { commit }: Store<State>, payload: EditStarPayload ) {
+            const { userId, snippetId } = payload;
             return firebase.firestore().collection( 'stars' ).doc( `${ userId }_${ snippetId }` ).delete().then( () => {
-                commit( 'removeStar', snippetId )
+                commit( 'removeStar', snippetId );
             } );
         }
     },
@@ -191,6 +198,9 @@ export default {
         },
         snippetList( state: State ) {
             return state.snippetList;
+        },
+        starredSnippetIds( state: State ) {
+            return state.starredSnippetIds;
         }
     }
 };
