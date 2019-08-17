@@ -1,0 +1,30 @@
+steps:
+- name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=.env.enc
+  - --plaintext-file=.env
+  - --location=global
+  - --keyring=docker-snippets
+  - --key=docker-snippets-env
+  id: DECRYPT
+  waitFor: ['-']
+
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install',]
+  id: ROOT_INSTALL
+  waitFor: ['-']
+
+- name: 'gcr.io/cloud-builders/npm'
+  dir: 'functions'
+  args: ['install']
+  id: FUNCTIONS_INSTALL
+  waitFor: ['-']
+
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'deploy']
+  waitFor:
+    - FUNCTIONS_INSTALL
+    - ROOT_INSTALL
+    - DECRYPT

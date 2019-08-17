@@ -38,30 +38,8 @@ steps:
     - DECRYPT
 
 - name: 'gcr.io/cloud-builders/npm'
-  dir: 'admin-site'
-  args: ['install']
-  id: ADMIN_INSTALL
-  waitFor: ['-']
-
-- name: 'gcr.io/cloud-builders/npm'
-  dir: 'admin-site'
-  id: ADMIN_BUILD
-  args: ['run','build', '--prod']
-  waitFor:
-    - ADMIN_INSTALL
-    - DECRYPT
-
-- name: 'gcr.io/cloud-builders/npm'
-  dir: 'functions'
-  args: ['install']
-  id: FUNCTIONS_INSTALL
-  waitFor: ['-']
-
-- name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'deploy']
   waitFor:
-    - FUNCTIONS_INSTALL
     - ROOT_INSTALL
-    - ADMIN_BUILD
     - CLIENT_BUILD
     - DECRYPT
