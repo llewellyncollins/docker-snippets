@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import VueClipboard from 'vue-clipboard2';
+
 import firebase from './firebase';
 
 import App from './App.vue';

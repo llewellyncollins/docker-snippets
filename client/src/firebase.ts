@@ -3,13 +3,13 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyC6cTNDv3SJ1hSWiENsgVe90-BWMCBwcOA',
-    authDomain: 'docker-snippets.firebaseapp.com',
-    databaseURL: 'https://docker-snippets.firebaseio.com',
-    projectId: 'docker-snippets',
-    storageBucket: 'docker-snippets.appspot.com',
-    messagingSenderId: '681353270380',
-    appId: '1:681353270380:web:6f7e2501b670890d'
+    apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+    authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGE_SENDER_ID,
+    appId: process.env.VUE_APP_FIREBASE_APP_ID
 };
 
 firebase.initializeApp( firebaseConfig );
