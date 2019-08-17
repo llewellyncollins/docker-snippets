@@ -27,8 +27,6 @@ steps:
       - 'VUE_APP_FIREBASE_APP_ID:$_FIREBASE_APP_ID'
   waitFor:
     - CLIENT_TEST
-  options:
-    substitution_option: 'ALLOW_LOOSE'
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'admin-site'
@@ -50,8 +48,6 @@ steps:
       - 'VUE_APP_FIREBASE_APP_ID:$_FIREBASE_APP_ID'
   waitFor:
     - ADMIN_INSTALL
-  options:
-    substitution_option: 'ALLOW_LOOSE'
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'functions'
@@ -65,3 +61,6 @@ steps:
     - FUNCTIONS_INSTALL
     - ADMIN_BUILD
     - CLIENT_BUILD
+
+options:
+    substitution_option: 'ALLOW_LOOSE'
