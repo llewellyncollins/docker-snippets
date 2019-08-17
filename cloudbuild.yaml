@@ -3,26 +3,45 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
   args: ['install']
+  id: CLIENT_INSTALL
+  waitFor: ['-']
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
   args: ['run','test:unit']
+  id: CLIENT_TEST
+  waitFor:
+    - CLIENT_INSTALL
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'client'
   args: ['run','build', '--prod']
+  id: CLIENT_BUILD
+  waitFor:
+    - CLIENT_TEST
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'admin-site'
   args: ['install']
+  id: ADMIN_INSTALL
+  waitFor: ['-']
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'admin-site'
   args: ['run','build', '--prod']
+  id: ADMIN_BUILD
+  waitFor:
+    - ADMIN_INSTALL
 
 - name: 'gcr.io/cloud-builders/npm'
   dir: 'functions'
   args: ['install']
+  id: FUNCTIONS_INSTALL
+  waitFor: ['-']
 
 - name: 'gcr.io/$PROJECT_ID/firebase'
   args: ['deploy']
+  waitFor:
+    - FUNCTIONS_INSTALL
+    - ADMIN_BUILD
+    - CLIENT_BUILD
