@@ -23,22 +23,20 @@ steps:
   waitFor: ['-']
 
 - name: 'gcr.io/cloud-builders/npm'
-  dir: 'client'
-  args: ['run','test:unit']
+  args: ['run','test:client']
   id: CLIENT_TEST
   waitFor:
     - CLIENT_INSTALL
 
 - name: 'gcr.io/cloud-builders/npm'
-  dir: 'client'
-  args: ['run','build', '--prod']
+  args: ['run','build:client']
   id: CLIENT_BUILD
   waitFor:
     - CLIENT_TEST
     - DECRYPT
 
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['run', 'deploy']
+- name: 'gcr.io/$PROJECT_ID/firebase'
+  args: ['deploy']
   waitFor:
     - ROOT_INSTALL
     - CLIENT_BUILD
