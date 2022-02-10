@@ -34,7 +34,7 @@
         "babel-core": "7.0.0-bridge.0",
         "chance": "^1.0.18",
         "lint-staged": "^9.2.0",
-        "node-sass": "^4.12.0",
+        "node-sass": "^7.0.0",
         "sass-loader": "^7.1.0",
         "stylus": "^0.54.5",
         "stylus-loader": "^3.0.2",
